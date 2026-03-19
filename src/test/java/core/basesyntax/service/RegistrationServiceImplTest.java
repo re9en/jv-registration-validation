@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class RegistrationServiceImplTest {
-    private static RegistrationServiceImpl registrationService;
+    private RegistrationServiceImpl registrationService;
 
     @BeforeEach
     void setUp() {
@@ -50,7 +50,7 @@ class RegistrationServiceImplTest {
     }
 
     @Test
-    void registerValid_user() {
+    void register_validUser_ok() {
         User user = new User();
         user.setId(10L);
         user.setLogin("regen6");
@@ -91,7 +91,7 @@ class RegistrationServiceImplTest {
     }
 
     @Test
-    void register_LoginAlreadyExists_NotOk() {
+    void register_existingLogin_notOk() {
         User user1 = new User();
         user1.setLogin("login123");
         user1.setPassword("password123");
