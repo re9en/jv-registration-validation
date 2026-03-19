@@ -19,9 +19,9 @@ public class RegistrationServiceImpl implements RegistrationService {
             throw new RegisterException("User login should not be LESS than 6 letter");
         }
         User userLogin = storageDao.get(user.getLogin());
-            if (userLogin != null) {
-                throw new RegisterException("There is already user with such login");
-            }
+        if (userLogin != null) {
+            throw new RegisterException("There is already user with such login");
+        }
         if (user.getPassword() == null) {
             throw new RegisterException("User password should not be NULL");
         }
