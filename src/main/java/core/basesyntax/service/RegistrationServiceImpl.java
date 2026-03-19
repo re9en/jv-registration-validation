@@ -3,7 +3,6 @@ package core.basesyntax.service;
 import core.basesyntax.appexception.RegisterException;
 import core.basesyntax.dao.StorageDao;
 import core.basesyntax.dao.StorageDaoImpl;
-import core.basesyntax.db.Storage;
 import core.basesyntax.model.User;
 
 public class RegistrationServiceImpl implements RegistrationService {
@@ -19,16 +18,18 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (user.getLogin().length() < MIN_LENGTH) {
             throw new RegisterException("User login should not be LESS than 6 letter");
         }
-        for (User record: Storage.people) {
-            if (user.getLogin().equals(record.getLogin())) {
+        User userLogin = storageDao.get(user.getLogin());
+            if (userLogin != null) {
                 throw new RegisterException("There is already user with such login");
             }
-        }
         if (user.getPassword() == null) {
             throw new RegisterException("User password should not be NULL");
         }
         if (user.getPassword().length() < MIN_LENGTH) {
             throw new RegisterException("User password should not be LESS than 6 letter");
+        }
+        if (user.getAge() == null) {
+            throw new RegisterException("user's age can't be null");
         }
         if (user.getAge() < 0) {
             throw new RegisterException("user's age can't be negative");
@@ -37,7 +38,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             throw new RegisterException("user's age can't be LESS than 18");
         }
 
-        Storage.people.add(user);
+        storageDao.add(user);
 
         return user;
     }

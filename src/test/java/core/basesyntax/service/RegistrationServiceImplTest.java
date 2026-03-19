@@ -40,6 +40,16 @@ class RegistrationServiceImplTest {
     }
 
     @Test
+    void age_cant_be_null() {
+        User user = new User();
+        user.setAge(null);
+
+        assertThrows(RegisterException.class,
+                () -> registrationService.register(user),
+                "age cant be null");
+    }
+
+    @Test
     void age_cant_be_negative() {
         User user = new User();
         user.setAge(-1);
